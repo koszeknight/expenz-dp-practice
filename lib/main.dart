@@ -1,5 +1,4 @@
 import 'package:expenz/Services/user_service.dart';
-import 'package:expenz/screens/onboard_screen.dart';
 import 'package:expenz/widgets/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

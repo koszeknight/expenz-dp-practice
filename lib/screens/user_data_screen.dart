@@ -1,5 +1,7 @@
 import 'package:expenz/contants/colors.dart';
 import 'package:expenz/contants/contants.dart';
+import 'package:expenz/screens/main_screen.dart';
+import 'package:expenz/screens/user_service.dart';
 import 'package:expenz/widgets/custom_btn.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +66,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             if (value!.isEmpty) {
                               return "Please Enter Name";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
                               hintText: "Name",
@@ -86,6 +89,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             if (value!.isEmpty) {
                               return "Please Enter Email";
                             }
+                            return null;
                           },
                           decoration: InputDecoration(
                               hintText: "Email",
@@ -106,6 +110,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             if (value!.isEmpty) {
                               return "Please Enter Password";
                             }
+                            return null;
                           },
                           obscureText: true,
                           decoration: InputDecoration(
@@ -127,6 +132,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                             if (value!.isEmpty) {
                               return "Please Enter thame Password";
                             }
+                            return null;
                           },
                           obscureText: true,
                           decoration: InputDecoration(
@@ -164,7 +170,7 @@ class _UserDataScreenState extends State<UserDataScreen> {
                         height: 20,
                       ),
                       GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (_formkey.currentState!.validate()) {
                               //form is valid , process
                               String userName = _userNameController.text;
@@ -173,8 +179,22 @@ class _UserDataScreenState extends State<UserDataScreen> {
                               String confirmedPassword =
                                   _passwordConfirmController.text;
 
+                              // save the user name and email in the device storage
+                              await UserServices.storeUserDetails(
+                                  userName: userName,
+                                  email: email,
+                                  password: password,
+                                  confirmedPassword: confirmedPassword,
+                                  context: context);
                               // print(
                               //     "$userName $email $password $confirmedPassword");
+                              // navigate to the main Page
+                              if (context.mounted) {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return const MainScreen();
+                                }));
+                              }
                             }
                           },
                           child: CustomButton(

@@ -25,7 +25,7 @@ class UserServices {
         return;
       }
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("User Name", userName);
+      await prefs.setString("username", userName);
       await prefs.setString("email", email);
 
       //show a message to the user
@@ -34,5 +34,15 @@ class UserServices {
     } catch (err) {
       err.toString();
     }
+  }
+
+  //Methode to checck wheather the username is saved in the shared pref
+
+  static Future<bool> checkUsername() async {
+    //create an instance for shared pred
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? userName = prefs.getString("username");
+    return userName != null;
   }
 }
